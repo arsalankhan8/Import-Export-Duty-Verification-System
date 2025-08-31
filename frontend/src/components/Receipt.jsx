@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import apiService from '../services/api';
 import { FaPhoneAlt, FaUser } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
-import Footer from './footer';
+import Footer from './Footer';
 
 const Receipt = () => {
   const { documentId } = useParams();
