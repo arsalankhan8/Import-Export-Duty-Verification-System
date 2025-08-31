@@ -19,10 +19,28 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: "*",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow mobile apps, curl, etc.
+
+      if (
+        origin.includes("localhost") || // dev
+        origin.endsWith(".vercel.app")  // any Vercel preview/prod
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS: " + origin));
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // ✅ keep this if using cookies / tokens
   })
 );
+
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin);
+  next();
+});
+
 
 
 // Middleware
