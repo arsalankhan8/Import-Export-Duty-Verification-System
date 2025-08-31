@@ -7,7 +7,7 @@ import Receipt from './components/Receipt'
 import BarcodeListener from "./components/BarcodeListener";
 import './index.css'
 import Test from './components/test'
-import Footer from './components/footer'
+import Footer from './components/Footer'
 const base = import.meta.env.BASE_URL || '/'
 
 const sliderImages = [
