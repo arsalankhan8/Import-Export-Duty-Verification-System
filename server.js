@@ -19,14 +19,11 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow curl, postman etc.
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow Postman/curl
 
-      if (
-        origin.includes("localhost") || // dev
-        origin.endsWith(".vercel.app")  // ✅ allow all vercel preview/prod
-      ) {
-        return callback(null, true);
+      if (origin.includes("localhost") || origin.endsWith(".vercel.app")) {
+        return callback(null, true); // ✅ allow all Vercel preview & prod
       }
 
       return callback(new Error("Not allowed by CORS: " + origin));
@@ -37,8 +34,6 @@ app.use(
   })
 );
 
-// ✅ Handle preflight
-app.options("*", cors());
 
 // Middleware
 app.use(express.json());
