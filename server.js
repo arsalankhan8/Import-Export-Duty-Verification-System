@@ -14,7 +14,8 @@ const app = express();
 // ✅ CORS setup
 const allowedOrigins = [
   "https://import-export-duty-verification-sys-omega.vercel.app", // your Vercel frontend
-  "http://localhost:5173", // local dev
+  "http://localhost:5173",
+  "https://estampingospk.com"
 ];
 
 app.use(
@@ -22,8 +23,8 @@ app.use(
     origin: (origin, callback) => {
       if (!origin) return callback(null, true); // allow Postman/curl
 
-      if (origin.includes("localhost") || origin.endsWith(".vercel.app")) {
-        return callback(null, true); // ✅ allow all Vercel preview & prod
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true); // ✅ allow listed domains
       }
 
       return callback(new Error("Not allowed by CORS: " + origin));
